@@ -1,5 +1,26 @@
 <h1 class="text-xl text-bold mb-4">True to Form: A Guide to Reactive Forms</h1>
 
+<ng-container *ngIf="stepDisplay.info">
+  <p>Info Form</p>
+
+  <button
+    (click)="goToStep('login')"
+    class="bg-green-300 text-green-600 p-2 rounded"
+  >
+    Next
+  </button>
+</ng-container>
+<ng-container *ngIf="stepDisplay.login">
+  <p>Login Form</p>
+
+  <button
+    (click)="goToStep('info')"
+    class="bg-green-300 text-green-600 p-2 rounded"
+  >
+    Prev
+  </button>
+</ng-container>
+
 <pre>
   <code>
     {{ formUpdates$ | async | json}}
