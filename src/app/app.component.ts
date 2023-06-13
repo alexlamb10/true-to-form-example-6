@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { debounceTime, map, startWith, tap } from 'rxjs';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public stepDisplay = {
     info: true,
     login: false,
@@ -41,6 +41,21 @@ export class AppComponent {
   );
 
   constructor(private _fb: FormBuilder) {}
+  ngOnInit() {
+    const storedValues = localStorage.getItem('registrationForm');
+    const parsedValues = storedValues ? JSON.parse(storedValues) : {};
+
+    this.form.patchValue({ ...parsedValues });
+
+    this.form.valueChanges
+      .pipe(
+        debounceTime(500),
+        tap((values) => {
+          localStorage.setItem('registrationForm', JSON.stringify(values));
+        })
+      )
+      .subscribe();
+  }
 
   goToStep(step: string) {
     this.stepDisplay.info = false;
