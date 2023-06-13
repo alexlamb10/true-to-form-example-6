@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
   @Input() form: FormGroup;
+  // @Input() submit: any;
   constructor() {}
 
   ngOnInit() {}

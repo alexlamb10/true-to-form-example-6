@@ -63,4 +63,9 @@ export class AppComponent implements OnInit {
 
     this.stepDisplay[step] = true;
   }
+  // submit() {
+  //   if (this.form.valid) {
+  //     console.log(this.form.value);
+  //   }
+  // }
 }
